@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-A-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="index.css">
+        <title>Simple Login and Logout with plain js</title>
+        <!--- CONSTANTS --->
+        <script>
+            const TIMER = 5;
+        </script>
+        <!--- CONSTANTS --->
+        <script>
+            var token;
+            var timer;
+            
+            function validateForm() {
+                var name = document.getElementById("username").value;
+                var pass = document.getElementById("password").value;
+                let button = document.querySelector(".submit");
+                button.disabled = true; //setting button state to disabled
+
+                if (name && pass) {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
+            }
+
+            function onSubmit() {
+                var name = document.getElementById("username").value;
+                var pass = document.getElementById("password").value;
+                token = new Date().toISOString();
+                document.getElementById("MainContainer").style.display = "none";
+                var dashboard = document.getElementById("dashboard");
+                dashboard.style.display="block";
+                timer = TIMER;
+                var interval = setInterval(() => {
+                    document.getElementById("countdown").innerHTML=`You will be logged in ${timer}sec(s)`;
+                    var clock = -((timer % 60) * 6) - 90;
+                    document.getElementById("seconds").style.transform =`rotate(${clock}deg)`;
+                    if (timer === 0)  {
+                        clearInterval(interval); // you can reload, but its good to always clear the interval.
+                        // option 1
+                        window.location.reload();
+
+                        // option 2
+                        /*
+                            token = undefined;
+                            document.getElementById("dashboard").style.display = "none";
+                            document.getElementById("MainContainer").style.display = "flex";
+                            document.getElementById("username").value = "";
+                            document.getElementById("password").value= "";
+                        */
+                    }
+                    timer--;
+                }, 1000);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="box" id="MainContainer">
+            <input type="text" id="username" onkeyup="validateForm()" autofocus />
+            <input type="password" id="password" onkeyup="validateForm()" />
+            <input type="submit" class="submit" id="submit" onclick="onSubmit()" value="Login" />
+        </div>
+        <div class="dashboard" id="dashboard">
+            <div class="countdown" id="countdown">You will be logged out in x secs</div>
+            <div class="timer" id="timer">
+                <div class="radius"></div>
+                <div class="radius two"></div>
+                <div class="radius three"></div>
+                <div class="radius four"></div>
+                <div class="radius five"></div>
+                <div class="radius six"></div>
+                <div class="radius seven"></div>
+                <div class="radius eight"></div>
+                <div class="radius nine"></div>
+                <div class="radius ten"></div>
+                <div class="radius eleven"></div>
+                <div class="radius twelve"></div>
+                <div class="inner"></div>
+                <div class="radius fixed"></div>
+                <div class="radius moving" id="seconds"></div>
+            </div>
+        </div>
+    </body>
+</html>
