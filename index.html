@@ -37,7 +37,7 @@
                 dashboard.style.display="block";
                 timer = TIMER;
                 var interval = setInterval(() => {
-                    document.getElementById("countdown").innerHTML=`You will be logged in ${timer}sec(s)`;
+                    document.getElementById("countdown").innerHTML=`You will be logged out in ${timer}sec(s).`;
                     var clock = -((timer % 60) * 6) - 90;
                     document.getElementById("seconds").style.transform =`rotate(${clock}deg)`;
                     if (timer === 0)  {
